@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -12,8 +12,10 @@ import {
   Nav,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 function Home() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
@@ -23,22 +25,36 @@ function Home() {
     // Dispatch your add-to-cart action or navigate to the cart page
   };
 
+  const getData = async () => {
+    let reqOpt = {
+      method: "GET",
+    };
+    let response = await fetch("http://localhost:9876/getProducts", reqOpt);
+    let responseData = await response.json();
+    console.log(responseData);
+    setProducts(responseData);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <div className="home-main-div">
         <Navbar className="d-flex bg-info">
           <Container className="hometopdiv">
             <Navbar.Brand href="#home">MoonMart</Navbar.Brand>
-            <input
-              type="search"
-              className="search-input"
-              placeholder="Search here"
-            />
-            <button className="search-btn">Search</button>
+            <div className="search-input-btn ">
+              <input
+                type="search"
+                className="search-input"
+                placeholder="Search here"
+              />
+              <button className="search-btn">Search</button>
+            </div>
             <DropdownButton id="dropdown-basic-button" title="Category">
-              <Dropdown.Item href="#/action-1">Shirts</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">T-shirts</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Jeans</Dropdown.Item>
+              <Dropdown.Item style={{ color: "black" }}>Shirts</Dropdown.Item>
+              <Dropdown.Item style={{ color: "black" }}>T-shirts</Dropdown.Item>
+              <Dropdown.Item style={{ color: "black" }}>Jeans</Dropdown.Item>
             </DropdownButton>
             <div>
               <div
@@ -66,7 +82,7 @@ function Home() {
         placement="end"
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+          <Offcanvas.Title className="header-offcanvas">Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
@@ -75,31 +91,38 @@ function Home() {
               className="nav-link"
               onClick={handleCloseOffcanvas}
             >
-              Home
+              🏠 Home
             </Link>
             <Link
               to="/about"
               className="nav-link"
               onClick={handleCloseOffcanvas}
             >
-              About
+              (^_^) About
             </Link>
             <Link
-              to="/edit-profile"
+              to="/editprofile"
               className="nav-link"
               onClick={handleCloseOffcanvas}
             >
-              Edit Profile
+              ✏️ Edit Profile
             </Link>
             <Link
               to="/contact"
               className="nav-link"
               onClick={handleCloseOffcanvas}
             >
-              Contact
+              📞 Contact
             </Link>
+            <Link
+              to="/productsAdd"
+              className="nav-link"
+              onClick={handleCloseOffcanvas}
+            >
+              ➕ Add Products
+            </Link>{" "}
             <Link to="/" className="nav-link" onClick={handleCloseOffcanvas}>
-              Logout
+              🚪 Logout
             </Link>
           </Nav>
         </Offcanvas.Body>
@@ -130,6 +153,24 @@ function Home() {
             </Carousel.Item>
           </Carousel>
         </div>
+      </div>
+      <div className="product-details-div text-center">
+        {products.map((product) => (
+          <div key={product.id} className="product">
+            {/* Replace the existing img tag with the product's image source */}
+            {/* <img src={product.image} alt={product.brand} /> */}
+            <img
+              src={`http://localhost:9876/${product.image}`}
+              alt={product.brand}
+            />
+            <p>Product_name: {product.product_name}</p>
+            <p>product_description: {product.product_description}</p>
+            <p>price: {product.price}</p>
+            <p>Brand: {product.brand}</p>
+            <p>Rating: {product.rating}</p>
+            <p>stock_quantity: {product.stock_quantity}</p>
+          </div>
+        ))}
       </div>
     </>
   );

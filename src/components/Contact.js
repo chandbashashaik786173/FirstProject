@@ -3,10 +3,10 @@ import Navbar from "./Navbar";
 
 function Contact() {
   return (
-    <div className="App">
+    <div className="contactpage-maindiv">
       <Navbar />
       <div className="contact-container">
-        <div class="container">
+        <div class="contact-container2">
           <div class="text">Contact us Form</div>
           <form action="#">
             <div class="form-row">

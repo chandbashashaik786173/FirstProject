@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import EditProfile from "./components/EditProfile";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProductsAdd from "./components/ProductsAdd";
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/productsAdd" element={<ProductsAdd />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

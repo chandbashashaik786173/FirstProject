@@ -69,12 +69,12 @@ function EditProfile() {
     }
   };
   return (
-    <div>
+    <div className="editpage-maindiv">
       <Navbar />
       <div className="editcontainer">
         <div>
-          <form className="editprofileform">
-            <div>
+          <form className="editprofileform ">
+            <div className="text-center">
               <img src={profilePic} alt="" className="defaultimage"></img>
             </div>
             <div>
@@ -136,14 +136,16 @@ function EditProfile() {
                 }}
               ></input>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                onSignup();
-              }}
-            >
-              Update
-            </button>
+            <div className="text-center mt-3">
+              <button
+                type="button"
+                onClick={() => {
+                  onSignup();
+                }}
+              >
+                Update
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -8,14 +8,17 @@ function Navbar() {
           <NavLink to="/home" activeclassname="active">
             Home
           </NavLink>
+          <NavLink to="/about" activeclassname="active">
+            About
+          </NavLink>{" "}
           <NavLink to="/editProfile" activeclassname="active">
             EditProfile
           </NavLink>
-          <NavLink to="/about" activeclassname="active">
-            About
-          </NavLink>
           <NavLink to="/contact" activeclassname="active">
             Contact
+          </NavLink>
+          <NavLink to="/productsAdd" activeclassname="active">
+            Products Add
           </NavLink>
           <NavLink to="/" activeclassname="active">
             Logout
